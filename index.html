@@ -6,36 +6,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-signin-client_id" content="136365483246-f0ho80r17j8q193l1f3u99dth66opnu7.apps.googleusercontent.com">
   <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+  <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>                              
+  <link rel="stylesheet" href="styles.css">
+  <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
+  <script src="jquery.js"></script>
   <title>Kamera</title>
 </head>
 <body>
-  <h1>Login</h1>
-  <div class="g-signin2" data-onsuccess="onSignIn"></div>
-  <div id="content"></div>
-  <br>
-  <button onclick="signOut()"></button>
-
-  <script>
-    function onSignIn(googleUser) {
-      var profile = googleUser.getBasicProfile();
-      // console.log("ID: " + profile.getId()); 
-      console.log('Full Name: ' + profile.getName());
-      console.log('Given Name: ' + profile.getGivenName());
-      console.log('Family Name: ' + profile.getFamilyName());
-      console.log("Image URL: " + profile.getImageUrl());
-      console.log("Email: " + profile.getEmail());
-
-      var id_token = googleUser.getAuthResponse().id_token;
-      console.log("ID Token: " + id_token);
-
-      var element = document.querySelector('#content')
-      element.innerText = profile.getName();
-
-      var image = document.createElement('img')
-      image.setAttribute('src', profile.getImageUrl());
-      element.append(image);
-    }
-  </script>
+  <section class="login-block">
+    <div class="container">
+        <div class="row ">
+            <div class="col-sm-12">
+              <div class="d-flex align-items-center"></div>
+                    <div class="auth-box card">
+                        <div class="card-block">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <h3 class="text-center heading">Login menggunakan akun google</h3>
+                            </div>
+                        </div>
+                            <div class="d-flex justify-content-center" >
+                                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                            </div> <br>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+  <!-- <button onclick="signOut()">Logout</button> -->
    
 </body>
 </html>
