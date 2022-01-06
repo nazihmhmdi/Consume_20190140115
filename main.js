@@ -17,62 +17,34 @@ function signOut() {
 	.catch(error => {console.log(error)});
 }
 
-      function wsconsume() {
-        $.getXMLHttpRequest("http://localhost:8080/kameralist/kamera", function(data) {
-          console.log(data);
-          $.each(data,function(i){
-        	const tr = tabel.insertRow()
+$("#view").ready(function () {
+	var view = document.getElementById("view")
+	getAll().then(response => {
+			console.log(response)
+			for(var i = 0; i <response.length; i++){
+					const tr = view.insertRow()
 					const td1 = tr.insertCell();
 					const td2 = tr.insertCell();
 					const td3 = tr.insertCell();
 					const td4 = tr.insertCell();
 					const td5 = tr.insertCell();
           const td6 = tr.insertCell();
-					console.log(data[i])
+					console.log(response[i])
 						
-					td1.innerHTML = data[i].merek
-					td2.innerHTML = data[i].tipe
-					td3.innerHTML = data[i].jenis
-					td4.innerHTML = data[i].harga
-					td5.innerHTML = data[i].noseri
+					td1.innerHTML = response[i].merek
+					td2.innerHTML = response[i].tipe
+					td3.innerHTML = response[i].jenis
+					td4.innerHTML = response[i].harga
+					td5.innerHTML = response[i].noseri
 					td6.innerHTML =`
           <div class ="justify content-center">
 					<a class="btn btn-info" href="edit.html?noseri=${response[i].noseri}">Edit</a>
 					<button type ="button" class=""btn btn-danger"" onclick="del(${response[i].noseri});">Delete</button>
 					</div>`
-					})
-        })
-      }
-
-// $("#tabel").ready(function () {
-// 	var tabel = document.getElementById("tabel")
-// 	$.getJSON("http://localhost:8080/kameralist/kamera", function(data) {
-// 	// getAll().then(response => {
-// 			console.log(data)
-// 			$.each(data,function(i){
-// 					const tr = tabel.insertRow()
-// 					const td1 = tr.insertCell();
-// 					const td2 = tr.insertCell();
-// 					const td3 = tr.insertCell();
-// 					const td4 = tr.insertCell();
-// 					const td5 = tr.insertCell();
-//           const td6 = tr.insertCell();
-// 					console.log(data[i])
-						
-// 					td1.innerHTML = data[i].merek
-// 					td2.innerHTML = data[i].tipe
-// 					td3.innerHTML = data[i].jenis
-// 					td4.innerHTML = data[i].harga
-// 					td5.innerHTML = data[i].noseri
-// 					td6.innerHTML =`
-//           <div class ="justify content-center">
-// 					<a class="btn btn-info" href="edit.html?noseri=${response[i].noseri}">Edit</a>
-// 					<button type ="button" class=""btn btn-danger"" onclick="del(${response[i].noseri});">Delete</button>
-// 					</div>`
-// 					})
-// 			}
-// 	)
-// });
+					}
+			}
+	)
+});
 
 function onLoad(){
 	gapi.load("auth2", function(){
