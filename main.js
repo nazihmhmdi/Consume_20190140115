@@ -37,9 +37,8 @@ $("#view").ready(function () {
 						<a button class="btn btn-info mr-1" href="edit.html?noseri=${response[i].noseri}">Edit</a>
 						<button type="button" class="btn btn-danger" onclick="del(${response[i].noseri});">Delete</button>
 					</div>`
-					}
-			}
-	)
+				}
+		})
 });
 
 function onLoad(){
@@ -99,6 +98,41 @@ function getData(){
 	});
 }
 
+function getDataS(){
+	var view = document.getElementById("view")
+	var response = document.getElementById("search").value
+	console.log(response)
+	axios.get(
+			`http://localhost:8080/kameralist/kamera/${response}`
+	).then((response) => {
+		console.log(response)
+		for(var i = 0; i < response.length; i++){
+					const tr = view.insertRow()
+					const td1 = tr.insertCell();
+					const td2 = tr.insertCell();
+					const td3 = tr.insertCell();
+					const td4 = tr.insertCell();
+					const td5 = tr.insertCell();
+					const td6 = tr.insertCell();
+					console.log(response[i])
+						
+					td1.innerHTML = response[i].merek
+					td2.innerHTML = response[i].tipe
+					td3.innerHTML = response[i].jenis
+					td4.innerHTML = response[i].harga
+					td5.innerHTML = response[i].noseri
+					td6.innerHTML =`
+					<div class ="justify content-center">
+						<a button class="btn btn-info mr-1" href="edit.html?noseri=${response[i].noseri}">Edit</a>
+						<button type="button" class="btn btn-danger" onclick="del(${response[i].noseri});">Delete</button>
+					</div>`
+			}			
+		}).catch((err) => {
+				console.log(err)
+		});
+	
+}
+
 function del(noseri){
 	if (window.confirm("Delete data?")===true) {
 			axios.delete(`http://localhost:8080/kameralist/kamera/${noseri}`).then((result) => {
@@ -109,13 +143,3 @@ function del(noseri){
 			});
 	}
 }
-
-// async function del(data){
-// 	await axios.delete("http://localhost:8080/kameralist/kamera/", data)
-// 	.then((result) => {
-// 			console.log(result)
-// 			return result.data
-// 	}).catch((err) => {
-// 			console.error(err)
-// 	});
-// }
