@@ -1,14 +1,15 @@
+// Login google
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
   // console.log("ID: " + profile.getId()); 
   console.log('Full Name: ' + profile.getName());
   console.log('Given Name: ' + profile.getGivenName());
-  console.log('Family Name: ' + profile.getFamilyName());
   console.log("Image URL: " + profile.getImageUrl());
   console.log("Email: " + profile.getEmail());
   window.location.href="/kameraConsume/home.html"
 }
 
+//Logout
 function signOut() {
 	gapi.auth2.getAuthInstance().signOut().then(function() {
 		console.log('Signed out')
@@ -16,6 +17,12 @@ function signOut() {
 	})
 	.catch(error => {console.log(error)});
 }
+
+//get username
+$("#user").ready(function () {
+	var user = document.getElementById("user")
+	user.innerHTML = `Welcome, ${profile.getName()}`
+});
 
 $("#view").ready(function () {
 	var view = document.getElementById("view")
@@ -54,7 +61,7 @@ function onLoad(){
 
 var url ="http://localhost:8080/kameralist/kamera";
 
-function dlt(noseri){
+function del(noseri){
 	if (window.confirm("Delete data?")===true) {
 			axios.delete(`http://localhost:8080/kameralist/kamera/${noseri}`).then((result) => {
 					alert("Success")
@@ -69,6 +76,48 @@ function getAll(){
 	const respon = axios.get("http://localhost:8080/kameralist/kamera")
 	const k = respon.then(resp => resp.data)
 	return k
+}
+
+function saveData(){
+	var body = {
+		noseri:$("#noseri").val(),
+		merek:$("#merek").val(),
+		tipe:$("#tipe").val(),
+		jenis:$("#jenis").val(),
+		harga:$("#harga").val(),
+	}
+
+	var json = JSON.stringify(body)
+	console.log(json)
+	axios({
+			method:"post",
+			url:url, 
+			data:json, 
+			headers:{ "Content-Type": "application/json" }
+	})
+	.then((result) => {
+			console.log("Data berhasil disimpan")   
+	}).catch((err) => {
+			console.log(error)
+	});
+}
+
+function getData(){
+	var url = new URL($(location).attr("href"))
+	var params = url.searchParams.get("noseri")
+	console.log(params)
+	axios.get(
+			`http://localhost:8080/kameralist/kamera/${params}`
+	).then((result) => {
+			console.log(result)
+			$("#noseri").val(result.data.noseri);
+			$("#merek").val(result.data.merek);
+			$("#tipe").val(result.data.tipe);
+			$("#jenis").val(result.data.jenis);
+			$("#harga").val(result.data.harga);
+	}).catch((err) => {
+			console.log(error)
+	});
 }
 
 async function create(kamera){

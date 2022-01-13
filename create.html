@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="136365483246-f0ho80r17j8q193l1f3u99dth66opnu7.apps.googleusercontent.com">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Kamera</title>
+</head>
+<body>
+    <nav class="navbar navbar-light" style="background-color: #beffbc;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">KAMERA</a>
+          <div id="user"></div>
+          <button class="btn btn-sm btn-outline-secondary" type="button" onclick="signOut();">Sign Out</button>
+        </div>
+      </nav>    
+
+    <section>
+      <div class="container mt-2">
+        <h4> Create Data</h4>
+            <form>
+              <div class="row">
+                <div class="form-group my-3 col-4">
+                  <label for="noseri" class="form-label">No Seri</label>
+                  <input type="text" class="form-control" id="noseri" placeholder="No seri">
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group my-3 col-4">
+                  <label for="merek" class="form-label">Merek</label>
+                  <input type="text" class="form-control" id="merek" placeholder="Merek">
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group my-3 col-4">
+                  <label for="tipe" class="form-label">Tipe</label>
+                  <input type="text" class="form-control" id="tipe" placeholder="Tipe">
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group my-3 col-4">
+                  <label for="jenis" class="form-label">Jenis</label>
+                  <input type="text" class="form-control" id="jenis" placeholder="Jenis">
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group my-3 col-4">
+                  <label for="harga" class="form-label">Harga</label>
+                  <input type="text" class="form-control" id="harga" placeholder="Harga">
+                </div>
+              </div>  
+              <div class="row">
+                <div class="col-12">
+                  <button type="button" class="btn btn-success col-2 mt-4" onclick="saveData();">Save Data</button>
+                  <button type="button" class="btn btn-primary col-2 mt-4" onclick="return window.location.href= './home.html'">Kembali</button>
+                </div>
+              </div>
+            </form>
+      </div>  
+    </section>
+
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="main.js"></script>
+    <script src="jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </body>
+</html>
