@@ -1,12 +1,6 @@
 // Login google
 function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  // console.log("ID: " + profile.getId()); 
-  console.log('Full Name: ' + profile.getName());
-  console.log('Given Name: ' + profile.getGivenName());
-  console.log("Image URL: " + profile.getImageUrl());
-  console.log("Email: " + profile.getEmail());
-  window.location.href="/kameraConsume/home.html"
+	window.location.href="/kameraConsume/home.html"
 }
 
 //Logout
@@ -18,11 +12,6 @@ function signOut() {
 	.catch(error => {console.log(error)});
 }
 
-//get username
-$("#user").ready(function () {
-	var user = document.getElementById("user")
-	user.innerHTML = `Welcome, ${profile.getName()}`
-});
 
 $("#view").ready(function () {
 	var view = document.getElementById("view")
@@ -45,8 +34,8 @@ $("#view").ready(function () {
 					td5.innerHTML = response[i].noseri
 					td6.innerHTML =`
           <div class ="justify content-center">
-					<a class="btn btn-info" href="edit.html?noseri=${response[i].noseri}">Edit</a>
-					<button type ="button" class=""btn btn-danger"" onclick="del(${response[i].noseri});">Delete</button>
+						<a button class="btn btn-info mr-1" href="edit.html?noseri=${response[i].noseri}">Edit</a>
+						<button type="button" class="btn btn-danger" onclick="del(${response[i].noseri});">Delete</button>
 					</div>`
 					}
 			}
@@ -60,17 +49,6 @@ function onLoad(){
 }
 
 var url ="http://localhost:8080/kameralist/kamera";
-
-function del(noseri){
-	if (window.confirm("Delete data?")===true) {
-			axios.delete(`http://localhost:8080/kameralist/kamera/${noseri}`).then((result) => {
-					alert("Success")
-					window.location.href="/home.html"
-			}).catch((e) => {
-					console.log(e)
-			});
-	}
-}
 
 function getAll(){
 	const respon = axios.get("http://localhost:8080/kameralist/kamera")
@@ -97,6 +75,7 @@ function saveData(){
 	})
 	.then((result) => {
 			console.log("Data berhasil disimpan")   
+			window.location.href="/kameraConsume/home.html";
 	}).catch((err) => {
 			console.log(error)
 	});
@@ -120,32 +99,23 @@ function getData(){
 	});
 }
 
-async function create(kamera){
-	await axios.post("http://localhost:8080/kameralist/kamera", kamera)
-	.then((result) => {
-			console.log(result)
-			return result.data
-	}).catch((e) => {
-			console.error(e)
-	});
+function del(noseri){
+	if (window.confirm("Delete data?")===true) {
+			axios.delete(`http://localhost:8080/kameralist/kamera/${noseri}`).then((result) => {
+					alert("Success")
+					window.location.href="/kameraConsume/home.html"
+			}).catch((e) => {
+					console.log(e)
+			});
+	}
 }
 
-async function update(kamera){
-	await axios.put("http://localhost:8080/kameralist/kamera", kamera)
-	.then((result) => {
-			console.log(result)
-			return result.data
-	}).catch((e) => {
-			console.error(e)
-	});
-}
-
-async function del(kamera){
-	await axios.delete("http://localhost:8080/kameralist/kamera", kamera)
-	.then((result) => {
-			console.log(result)
-			return result.data
-	}).catch((e) => {
-			console.error(e)
-	});
-}
+// async function del(data){
+// 	await axios.delete("http://localhost:8080/kameralist/kamera/", data)
+// 	.then((result) => {
+// 			console.log(result)
+// 			return result.data
+// 	}).catch((err) => {
+// 			console.error(err)
+// 	});
+// }
