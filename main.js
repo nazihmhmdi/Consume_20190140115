@@ -12,7 +12,6 @@ function signOut() {
 	.catch(error => {console.log(error)});
 }
 
-
 $("#view").ready(function () {
 	var view = document.getElementById("view")
 	getAll().then(response => {
@@ -98,40 +97,59 @@ function getData(){
 	});
 }
 
-function getDataS(){
-	var view = document.getElementById("view")
-	var response = document.getElementById("search").value
-	console.log(response)
-	axios.get(
-			`http://localhost:8080/kameralist/kamera/${response}`
-	).then((response) => {
-		console.log(response)
-		for(var i = 0; i < response.length; i++){
-					const tr = view.insertRow()
-					const td1 = tr.insertCell();
-					const td2 = tr.insertCell();
-					const td3 = tr.insertCell();
-					const td4 = tr.insertCell();
-					const td5 = tr.insertCell();
-					const td6 = tr.insertCell();
-					console.log(response[i])
-						
-					td1.innerHTML = response[i].merek
-					td2.innerHTML = response[i].tipe
-					td3.innerHTML = response[i].jenis
-					td4.innerHTML = response[i].harga
-					td5.innerHTML = response[i].noseri
-					td6.innerHTML =`
-					<div class ="justify content-center">
-						<a button class="btn btn-info mr-1" href="edit.html?noseri=${response[i].noseri}">Edit</a>
-						<button type="button" class="btn btn-danger" onclick="del(${response[i].noseri});">Delete</button>
-					</div>`
-			}			
-		}).catch((err) => {
-				console.log(err)
-		});
-	
+function cari() {
+  var input, table, tr, td, i, txtValue, filter;
+  input = document.getElementById("search");
+	filter = input.value.toUpperCase();
+  table = document.getElementById("view");
+  tr = table.getElementsByTagName("tr");
+
+	for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
 }
+
+// function getDataS(){
+// 	var view = document.getElementById("view")
+// 	var response = document.getElementById("search").value
+// 	console.log(response)
+// 	axios.get(
+// 			`http://localhost:8080/kameralist/kamera/${response}`
+// 	).then((response) => {
+// 		console.log(response)
+// 		for(var i = 0; i < response.length; i++){
+// 					const tr = view.insertRow()
+// 					const td1 = tr.insertCell();
+// 					const td2 = tr.insertCell();
+// 					const td3 = tr.insertCell();
+// 					const td4 = tr.insertCell();
+// 					const td5 = tr.insertCell();
+// 					const td6 = tr.insertCell();
+// 					console.log(response[i])
+						
+// 					td1.innerHTML = response[i].merek
+// 					td2.innerHTML = response[i].tipe
+// 					td3.innerHTML = response[i].jenis
+// 					td4.innerHTML = response[i].harga
+// 					td5.innerHTML = response[i].noseri
+// 					td6.innerHTML =`
+// 					<div class ="justify content-center">
+// 						<a button class="btn btn-info mr-1" href="edit.html?noseri=${response[i].noseri}">Edit</a>
+// 						<button type="button" class="btn btn-danger" onclick="del(${response[i].noseri});">Delete</button>
+// 					</div>`
+// 			}			
+// 		}).catch((err) => {
+// 				console.log(err)
+// 		});
+// }
 
 function del(noseri){
 	if (window.confirm("Delete data?")===true) {
